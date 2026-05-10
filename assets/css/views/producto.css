@@ -1,0 +1,18 @@
+/* Estilos Específicos para Productos */
+
+/* Formularios Específicos (Crear/Editar) */
+.dr-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dr-text-main);
+    font-size: 0.95rem;
+}
+
+/* Responsividad Específica */
+@media (max-width: 768px) {
+    .dr-form-row {
+        flex-direction: column;
+    }
+}
+

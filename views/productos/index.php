@@ -1,51 +1,50 @@
 <?php include_once __DIR__ . '/../layouts/header.php'; ?>
 <?php include_once __DIR__ . '/../layouts/navbar.php'; ?>
 
-<div class="main-container">
+<div class="dr-layout-main">
     <?php include_once __DIR__ . '/../layouts/sidebar.php'; ?>
     
-    <div class="content">
-        <div class="page-header d-flex justify-content-between align-items-center">
-            <h4 class="mb-0"><i class="fas fa-box"></i> Gestión de Productos</h4>
-            <a href="index.php?controller=producto&action=create" class="btn btn-primary-custom">
+    <main class="dr-content fade-in">
+        <div class="dr-page-header">
+            <h1 class="dr-page-title"><i class="fas fa-box"></i> Gestión de Productos</h1>
+            <a href="index.php?controller=producto&action=create" class="dr-btn dr-btn-primary">
                 <i class="fas fa-plus"></i> Nuevo Producto
             </a>
         </div>
 
         <?php $flash = getFlash('success'); ?>
         <?php if ($flash): ?>
-            <div class="alert alert-success alert-custom alert-dismissible fade show" role="alert">
+            <div class="dr-alert dr-alert-success">
                 <i class="fas fa-check-circle"></i> <?php echo $flash['message']; ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         <?php endif; ?>
 
         <?php $flashError = getFlash('error'); ?>
         <?php if ($flashError): ?>
-            <div class="alert alert-danger alert-custom alert-dismissible fade show" role="alert">
+            <div class="dr-alert dr-alert-danger">
                 <i class="fas fa-exclamation-circle"></i> <?php echo $flashError['message']; ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         <?php endif; ?>
 
-        <div class="card card-custom">
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="search-box">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre o categoría..." value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
-                                <?php if(isset($_GET['search']) && $_GET['search']): ?>
-                                    <a href="index.php?controller=producto&action=index" class="btn btn-outline-secondary">Limpiar</a>
-                                <?php endif; ?>
-                            </div>
+        <div class="dr-card">
+            <div class="dr-card-body">
+                <div class="dr-search-bar">
+                    <form action="index.php" method="GET" class="dr-search-form">
+                        <input type="hidden" name="controller" value="producto">
+                        <input type="hidden" name="action" value="index">
+                        <div class="dr-input-icon-wrapper">
+                            <i class="fas fa-search dr-input-icon"></i>
+                            <input type="text" class="dr-input dr-input-with-icon" name="search" placeholder="Buscar por nombre o categoría..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                         </div>
-                    </div>
+                        <?php if(isset($_GET['search']) && $_GET['search']): ?>
+                            <a href="index.php?controller=producto&action=index" class="dr-btn dr-btn-outline">Limpiar</a>
+                        <?php endif; ?>
+                        <button type="submit" class="dr-btn dr-btn-primary">Buscar</button>
+                    </form>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table table-hover">
+                <div class="dr-table-wrapper">
+                    <table class="dr-table">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -62,35 +61,39 @@
                                 <?php foreach ($productos as $producto): ?>
                                     <tr>
                                         <td><?php echo $producto['id_producto']; ?></td>
-                                        <td><?php echo $producto['nombre_producto']; ?></td>
-                                        <td><span class="badge bg-secondary"><?php echo $producto['categoria']; ?></span></td>
-                                        <td><?php echo $producto['region_origen']; ?></td>
-                                        <td><?php echo formatCurrency($producto['precio']); ?></td>
+                                        <td><?php echo htmlspecialchars($producto['nombre_producto']); ?></td>
+                                        <td><span class="dr-badge dr-badge-secondary"><?php echo htmlspecialchars($producto['categoria']); ?></span></td>
+                                        <td><?php echo htmlspecialchars($producto['region_origen']); ?></td>
+                                        <td><strong class="dr-text-success"><?php echo formatCurrency($producto['precio']); ?></strong></td>
                                         <td>
                                             <?php if ($producto['stock'] < 10): ?>
-                                                <span class="badge bg-danger"><?php echo $producto['stock']; ?></span>
+                                                <span class="dr-badge dr-badge-danger"><?php echo $producto['stock']; ?></span>
                                             <?php else: ?>
-                                                <span class="badge bg-success"><?php echo $producto['stock']; ?></span>
+                                                <span class="dr-badge dr-badge-success"><?php echo $producto['stock']; ?></span>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="action-buttons">
-                                            <a href="index.php?controller=producto&action=show&id=<?php echo $producto['id_producto']; ?>" class="btn btn-sm btn-info" title="Ver">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="index.php?controller=producto&action=edit&id=<?php echo $producto['id_producto']; ?>" class="btn btn-sm btn-warning" title="Editar">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="index.php?controller=producto&action=delete&id=<?php echo $producto['id_producto']; ?>" class="btn btn-sm btn-danger btn-delete" title="Eliminar">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
+                                        <td>
+                                            <div class="dr-action-buttons">
+                                                <a href="index.php?controller=producto&action=show&id=<?php echo $producto['id_producto']; ?>" class="dr-btn-icon dr-btn-info" title="Ver">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="index.php?controller=producto&action=edit&id=<?php echo $producto['id_producto']; ?>" class="dr-btn-icon dr-btn-warning" title="Editar">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="index.php?controller=producto&action=delete&id=<?php echo $producto['id_producto']; ?>" class="dr-btn-icon dr-btn-danger" title="Eliminar" onclick="return confirm('¿Está seguro de eliminar este producto?');">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted py-4">
-                                        <i class="fas fa-inbox fa-2x mb-2"></i>
-                                        <p class="mb-0">No hay productos registrados</p>
+                                    <td colspan="7">
+                                        <div class="dr-empty-state">
+                                            <i class="fas fa-inbox"></i>
+                                            <p>No hay productos registrados</p>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endif; ?>
@@ -99,7 +102,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </div>
 
 <?php include_once __DIR__ . '/../layouts/footer.php'; ?>

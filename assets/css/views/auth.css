@@ -1,0 +1,146 @@
+/* Estilos Específicos para la vista de Autenticación (Login) */
+
+.dr-auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--dr-primary), var(--dr-primary-dark));
+    padding: 20px;
+    /* Patrón de fondo sutil para dar toque rústico/premium */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.dr-auth-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: var(--dr-radius-lg);
+    box-shadow: var(--dr-shadow-lg);
+    width: 100%;
+    max-width: 420px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dr-auth-header {
+    background: var(--dr-primary);
+    color: var(--dr-white);
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de fondo en el header del login */
+.dr-auth-header::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.dr-auth-header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.dr-auth-logo {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    color: var(--dr-accent);
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+.dr-auth-header h2 {
+    color: var(--dr-white);
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.dr-auth-header p {
+    color: var(--dr-accent);
+    margin: 5px 0 0;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.dr-auth-body {
+    padding: 40px 30px;
+}
+
+.dr-input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dr-input-icon {
+    position: absolute;
+    left: 16px;
+    color: var(--dr-primary-light);
+    font-size: 1.1rem;
+    transition: var(--dr-transition);
+}
+
+.dr-input-with-icon {
+    padding-left: 45px;
+}
+
+.dr-input-with-icon:focus + .dr-input-icon,
+.dr-input-with-icon:focus ~ .dr-input-icon {
+    color: var(--dr-primary);
+}
+
+.dr-btn-full {
+    width: 100%;
+    margin-top: 10px;
+    padding: 14px;
+    font-size: 1.1rem;
+}
+
+/* Alertas Custom */
+.dr-alert {
+    padding: 12px 16px;
+    border-radius: var(--dr-radius);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dr-alert-danger {
+    background-color: var(--dr-danger-bg);
+    color: var(--dr-danger);
+    border: 1px solid rgba(198, 40, 40, 0.2);
+}
+
+.dr-alert-success {
+    background-color: var(--dr-success-bg);
+    color: var(--dr-success);
+    border: 1px solid rgba(46, 125, 50, 0.2);
+}
+
+/* Responsividad extra para móviles muy pequeños */
+@media (max-width: 480px) {
+    .dr-auth-card {
+        border-radius: var(--dr-radius);
+    }
+    
+    .dr-auth-body {
+        padding: 30px 20px;
+    }
+}

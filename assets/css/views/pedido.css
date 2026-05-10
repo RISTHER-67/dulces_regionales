@@ -1,0 +1,8 @@
+/* Estilos Específicos para Pedidos */
+
+/* Responsividad Específica */
+@media (max-width: 768px) {
+    .dr-form-row {
+        flex-direction: column;
+    }
+}

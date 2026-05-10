@@ -19,11 +19,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const flashMessages = document.querySelectorAll('.alert');
+    const flashMessages = document.querySelectorAll('.dr-alert');
     flashMessages.forEach(message => {
         setTimeout(() => {
-            const bsAlert = new bootstrap.Alert(message);
-            bsAlert.close();
+            message.style.opacity = '0';
+            message.style.transform = 'translateY(-10px)';
+            message.style.transition = 'all 0.5s ease';
+            setTimeout(() => message.remove(), 500);
         }, 5000);
     });
 
@@ -46,4 +48,28 @@ document.addEventListener('DOMContentLoaded', function() {
     if (cantidadInput) {
         cantidadInput.addEventListener('input', calculateTotal);
     }
+
+    // --- Lógica de Dropdowns ---
+    const dropdowns = document.querySelectorAll('.dr-dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dr-btn, .dr-dropdown-toggle');
+        if (!toggle) return;
+
+        toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            // Cerrar otros dropdowns abiertos
+            dropdowns.forEach(d => {
+                if (d !== dropdown) d.classList.remove('show');
+            });
+            
+            dropdown.classList.toggle('show');
+        });
+    });
+
+    // Cerrar al hacer clic fuera
+    document.addEventListener('click', function() {
+        dropdowns.forEach(d => d.classList.remove('show'));
+    });
 });
